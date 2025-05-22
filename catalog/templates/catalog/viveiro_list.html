@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Viveiros List</h1>
+  {% if viveiros_list %}
+    <ul>
+      {% for viveiro in viveiros_list %}
+      <li>
+        <a href="{{ viveiro.get_absolute_url }}">{{ viveiro.responsavel }}</a>
+        ({{viveiro.contatoResponsavel}})
+      </li>
+      {% empty %}
+        <p>Não há viveiros cadastrados</p>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Não há viveiros cadastrados.</p>
+  {% endif %}
+{% endblock %}

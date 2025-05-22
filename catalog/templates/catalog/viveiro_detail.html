@@ -1,0 +1,49 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Viveiro de {{ viveiro }}</h1>
+
+  <p><strong>Responsavel:</strong> <a href="">{{ viveiro.responsavel }}</a></p>
+  <!-- author detail link not yet defined -->
+  <p><strong>Localidade Geográfica:</strong> {{ viveiro.localGeo }}</p>
+  <p><strong>Contato do responsável:</strong> {{ viveiro.contatoResponsavel }}</p>
+  <p><strong>Possui assitência?:</strong>
+      {% if viveiro.possuiAssistencia %}
+        Sim
+      {% else %}
+        Não
+      {% endif %}
+    </p>
+
+  <ul>
+    <li><a href="{% url 'viveiro-update' viveiro.id %}">Editar viveiro</a></li>
+    <li><a href="{% url 'viveiro-delete' viveiro.id %}">Deletar viveiro</a></li>
+  </ul>
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Históricos</h4>
+
+    {% for historico in viveiro.historicoviveiro_set.all %}
+      <hr />
+        <p><strong>Ano de resposta:</strong> {{ historico.ano|default:"Não informado" }}</p>
+        <p><strong>Sistemas de Produção:</strong>
+            {% if historico.sistemasDeProducao.all %}
+              {{ historico.sistemasDeProducao.all|join:", " }}
+            {% else %}
+              Não informado
+            {% endif %}
+          </p>
+        <p><strong>Número de plantas:</strong> {{ historico.numPlantas|default:"Não informado" }}</p>
+        <p><strong>Número de clientes:</strong> {{ historico.numClientes|default:"Não informado" }}</p>
+        <p><strong>Vendas B2B:</strong> {{ historico.B2B|default:"Não informado" }}%</p>
+        <p><strong>Vendas B2C:</strong> {{ historico.B2C|default:"Não informado" }}%</p>
+        <p><strong>Cultivares:</strong>
+            {% if historico.cultivar.all %}
+              {{ historico.cultivar.all|join:", " }}
+            {% else %}
+              Não informado
+            {% endif %}
+          </p>
+    {% endfor %}
+  </div>
+{% endblock %}

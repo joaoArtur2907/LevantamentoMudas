@@ -1,0 +1,23 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Home</h1>
+  <p>
+    Welcome to LevantamentoMudas, a website developed by
+    <em>Mozilla Developer Network</em>!
+  </p>
+  <h2>Dynamic content</h2>
+  <p>The levantamento has the following record counts:</p>
+  <ul>
+    <li><strong>Cultivares:</strong> {{ num_Cultivar }}</li>
+    <li><strong>Propriedades:</strong> {{ num_Propriedades }}</li>
+    <li><strong>Viveiros:</strong> {{ num_Viveiros }}</li>
+    <li><strong>Historicos de propriedades:</strong> {{ num_Historicos_Propriedades}}</li>
+    <li><strong>Historicos de viveiros:</strong> {{ num_Historicos_Viveiros}}</li>
+    <li><strong>Historicos de propriedades de 2025:</strong> {{ num_Historicos_Propriedades_2025}}</li>
+    <li><strong>Historicos de viveiros de 2025:</strong> {{ num_Historicos_Viveiros_2025}}</li>
+    {% if user.is_superuser %}
+      <li><a href="{% url 'propriedade-list' %}">Ver Propriedades</a></li>
+    {% endif %}
+  </ul>
+{% endblock %}

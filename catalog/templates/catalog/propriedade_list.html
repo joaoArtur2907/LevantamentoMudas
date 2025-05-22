@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Propriedades List</h1>
+  {% if propriedades_list %}
+    <ul>
+      {% for propriedade in propriedades_list %}
+      <li>
+        <a href="{{ propriedade.get_absolute_url }}">{{ propriedade.responsavel }}</a>
+        ({{propriedade.contatoResponsavel}})
+      </li>
+      {% empty %}
+        <p>Não há propriedades cadastradas</p>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Não há propriedades cadastradas.</p>
+  {% endif %}
+{% endblock %}

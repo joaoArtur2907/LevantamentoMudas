@@ -1,0 +1,30 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>Deletar Propriedade: {{ propriedade.responsavel }}</h1>
+
+{% if propriedade.historicopropriedade_set.all %}
+<p>Você não pode deletar esta propriedade até que todos os seus históricos sejam deletados:</p>
+<ul>
+  {% for historico in propriedade.historicopropriedade_set.all %}
+    <li>
+{#      <a href="{% url 'historicopropriedade-detail' historico.pk %}">#}
+        <a href="">
+        Histórico de {{ propriedade.responsavel }} ({{ historico.ano }})
+      </a>
+    </li>
+  {% endfor %}
+</ul>
+
+{% else %}
+<p>Você tem certeza que deseja deletar a propriedade "{{ propriedade.responsavel }}"?</p>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="Sim, deletar." class="btn btn-danger">
+  <a href="{{ propriedade.get_absolute_url }}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endif %}
+
+{% endblock %}

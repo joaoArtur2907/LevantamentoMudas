@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>Deletar histórico: {{ historicopropriedade.ano }} {{ historicopropriedade.propriedade.responsavel }}</h1>
+
+<p>Você tem certeza que deseja deletar o histórico: {{ historicopropriedade.ano }} {{ historicopropriedade.propriedade.responsavel }}"?</p>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="Sim, deletar." class="btn btn-danger">
+  <a href="{{ historicopropriedade.get_absolute_url }}" class="btn btn-secondary">Cancelar</a>
+</form>
+
+
+{% endblock %}

@@ -1,13 +1,142 @@
-.sidebar-nav {
-  margin-top: 20px;
-  padding: 0;
-  list-style: none;
-}
-#logout-form {
-  display: inline;
-}
-#logout-form button {
-  padding: 0;
-  margin: 0;
+/* Estilos personalizados que complementam o Bootstrap */
+body {
+  background-color: #f8f9fa;
 }
 
+.card {
+  border-radius: 15px;
+  border: none;
+}
+
+.btn-success {
+  background-color: #A1F0AD;
+  border-color: #A1F0AD;
+  color: #000;
+}
+
+.titleText {
+  font-weight: bold;
+}
+
+.btn-success:hover {
+  background-color: #8ad896;
+  border-color: #8ad896;
+}
+
+/* Efeitos de transição suave */
+.btn {
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.colorCard{
+  background-color: #EEEEEE;
+
+}
+
+
+
+.clickRight{
+  padding: 10px;
+  border: solid #71E483;
+  border-width: 0 6px 6px 0;
+  display: inline-block;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.clickLeft{
+  padding: 10px;
+  border: solid #71E483;
+  border-width: 0 6px 6px 0;
+  display: inline-block;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.green{
+  background-color: #71E483 !important;
+}
+
+.darkGreen{
+  background-color: #62b670 !important;
+}
+
+.textDark{
+  color: black;
+}
+
+.textDark:hover{
+  color: black!important;
+}
+
+.page-link.green {
+  background-color: #71E483 !important;
+  border-color: #71E483 !important;
+}
+
+.page-link.darkGreen {
+  background-color: #62b670 !important;
+  border-color: #62b670 !important;
+}
+
+.page-link.green .bi {
+  color: white !important;
+  stroke-width: 1.5;
+}
+
+.page-link.darkGreen .bi {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.page-link.green:hover {
+  background-color: #5ec973 !important;
+  border-color: #5ec973 !important;
+}
+
+.page-link:focus {
+  box-shadow: none !important;
+}
+
+
+.page-link {
+  transition: all 0.3s ease;
+}
+
+
+
+.arrowBack{
+  font-size: 2em;
+  color: #5ec973 !important;
+
+}
+
+.arrowBack:hover{
+  color: #469157 !important;
+
+}
+
+
+.btn-lg {
+  padding: 0.8rem 1.5rem;
+  font-size: 1.1rem;
+}
+
+.gap-3 {
+  gap: 1rem !important;
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}

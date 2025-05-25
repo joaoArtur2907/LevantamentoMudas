@@ -1,5 +1,8 @@
+from mimetypes import inited
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
@@ -48,12 +51,30 @@ class ViveirosListView(LoginRequiredMixin, generic.ListView):
 
 class PropriedadesDetailView(LoginRequiredMixin, generic.DetailView):
     model = Propriedade
+    paginate_by = 4
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        historicos = self.object.historicopropriedade_set.all()
+        paginator = Paginator(historicos, self.paginate_by)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context['historicos_page'] = page_obj
+        return context
 
 
 class ViveirosDetailView(LoginRequiredMixin, generic.DetailView):
     model = Viveiro
+    paginate_by = 4
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        historicos = self.object.historicoviveiro_set.all()
+        paginator = Paginator(historicos, self.paginate_by)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context['historicos_page'] = page_obj
+        return context
 
 class PropriedadeCreate(PermissionRequiredMixin, CreateView):
     model = Propriedade
@@ -105,4 +126,131 @@ class ViveiroDelete(PermissionRequiredMixin, DeleteView):
         except Exception as e:
             return HttpResponseRedirect(
                 reverse("viveiro-delete", kwargs={"pk": self.object.id})
+            )
+
+class HistoricoViveiroCreate(PermissionRequiredMixin, CreateView):
+    model = HistoricoViveiro
+    fields = '__all__'
+    permission_required = 'catalog.add_historico_viveiro'
+
+
+    def get_initial(self):
+        initial = super().get_initial()
+        viveiro_id = self.kwargs.get('viveiro_id')
+        if viveiro_id:
+            initial['viveiro'] = viveiro_id
+        return initial
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        viveiro_id = self.kwargs.get('viveiro_id')
+        if viveiro_id:
+            form.fields['viveiro'].initial = viveiro_id
+            form.fields['viveiro'].widget.attrs['readonly'] = True
+        return form
+
+    def get_success_url(self):
+        return reverse('viveiro-detail', kwargs={'pk': self.object.viveiro.id})
+
+
+class HistoricoViveiroUpdate(PermissionRequiredMixin, UpdateView):
+    model = HistoricoViveiro
+    fields = '__all__'
+    permission_required = 'catalog.change_historico_viveiro'
+    success_url = reverse_lazy('viveiros-list')
+
+    def get_initial(self):
+        initial = super().get_initial()
+        viveiro_id = self.kwargs.get('viveiro_id')
+        if viveiro_id:
+            initial['viveiro'] = viveiro_id
+        return initial
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        viveiro_id = self.kwargs.get('viveiro_id')
+        if viveiro_id:
+            form.fields['viveiro'].initial = viveiro_id
+            form.fields['viveiro'].widget.attrs['readonly'] = True
+        return form
+
+    def get_success_url(self):
+        return reverse('viveiro-detail', kwargs={'pk': self.object.viveiro.id})
+
+
+
+class HistoricoViveiroDelete(PermissionRequiredMixin, DeleteView):
+    model = HistoricoViveiro
+    success_url = reverse_lazy('viveiros-list')
+    permission_required = 'catalog.delete_historico_viveiro'
+
+    def form_valid(self, form):
+        try:
+            self.object.delete()
+            return HttpResponseRedirect(self.success_url)
+        except Exception as e:
+            return HttpResponseRedirect(
+                reverse("historico-viveiro-delete", args=[self.object.id])
+            )
+
+
+class HistoricoPropriedadeCreate(PermissionRequiredMixin, CreateView):
+    model = HistoricoPropriedade
+    fields = '__all__'
+    permission_required = 'catalog.add_historico_propriedade'
+
+    def get_initial(self):
+        initial = super().get_initial()
+        propriedade_id = self.kwargs.get('propriedade_id')
+        if propriedade_id:
+            initial['propriedade'] = propriedade_id
+        return initial
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        propriedade_id = self.kwargs.get('propriedade_id')
+        if propriedade_id:
+            form.fields['propriedade'].initial = propriedade_id
+            form.fields['propriedade'].widget.attrs['readonly'] = True
+        return form
+
+    def get_success_url(self):
+        return reverse('propriedade-detail', kwargs={'pk': self.object.propriedade.id})
+
+class HistoricoPropriedadeUpdate(PermissionRequiredMixin, UpdateView):
+    model = HistoricoPropriedade
+    fields = '__all__'
+    permission_required = 'catalog.change_historico_propriedade'
+    success_url = reverse_lazy('propriedades-list')
+
+    def get_initial(self):
+        initial = super().get_initial()
+        propriedade_id = self.kwargs.get('propriedade_id')
+        if propriedade_id:
+            initial['propriedade'] = propriedade_id
+        return initial
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        propriedade_id = self.kwargs.get('propriedade_id')
+        if propriedade_id:
+            form.fields['propriedade'].initial = propriedade_id
+            form.fields['propriedade'].widget.attrs['readonly'] = True
+        return form
+
+    def get_success_url(self):
+        return reverse('propriedade-detail', kwargs={'pk': self.object.propriedade.id})
+
+
+class HistoricoPropriedadeDelete(PermissionRequiredMixin, DeleteView):
+    model = HistoricoPropriedade
+    success_url = reverse_lazy('propriedade-list')
+    permission_required = 'catalog.delete_historico_propriedade'
+
+    def form_valid(self, form):
+        try:
+            self.object.delete()
+            return HttpResponseRedirect(self.success_url)
+        except Exception as e:
+            return HttpResponseRedirect(
+                reverse("historico-propriedade-delete", args=[self.object.id])
             )

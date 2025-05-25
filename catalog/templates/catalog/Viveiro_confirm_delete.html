@@ -23,7 +23,7 @@
 <form action="" method="POST">
   {% csrf_token %}
   <input type="submit" value="Sim, deletar." class="btn btn-danger">
-  <a href="{{ viveiro.get_absolute_url }}" class="btn btn-secondary">Cancelar</a>
+  <a href="{% url 'viveiros-list' %}" class="btn btn-secondary">Cancelar</a>
 </form>
 {% endif %}
 

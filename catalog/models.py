@@ -136,6 +136,8 @@ class HistoricoPropriedade(models.Model):
 
     )
 
+    # todo, mudar o modelo de b2b e b2c para apenas um item, com uma escolha entre se é voltado a B2B, B2C ou ambos igualmente
+
     B2B = models.IntegerField(
         blank=True, null=True,
         help_text= "O quanto sua propriedade vende para outras empresas",

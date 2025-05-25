@@ -1,23 +1,66 @@
-{% extends "base_generic.html" %}
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    {% block title %}
+      <title>Sistema Levantamento</title>
+    {% endblock %}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous">
 
-{% block content %}
-  <h1>Home</h1>
-  <p>
-    Welcome to LevantamentoMudas, a website developed by
-    <em>Mozilla Developer Network</em>!
-  </p>
-  <h2>Dynamic content</h2>
-  <p>The levantamento has the following record counts:</p>
-  <ul>
-    <li><strong>Cultivares:</strong> {{ num_Cultivar }}</li>
-    <li><strong>Propriedades:</strong> {{ num_Propriedades }}</li>
-    <li><strong>Viveiros:</strong> {{ num_Viveiros }}</li>
-    <li><strong>Historicos de propriedades:</strong> {{ num_Historicos_Propriedades}}</li>
-    <li><strong>Historicos de viveiros:</strong> {{ num_Historicos_Viveiros}}</li>
-    <li><strong>Historicos de propriedades de 2025:</strong> {{ num_Historicos_Propriedades_2025}}</li>
-    <li><strong>Historicos de viveiros de 2025:</strong> {{ num_Historicos_Viveiros_2025}}</li>
-    {% if user.is_superuser %}
-      <li><a href="{% url 'propriedade-list' %}">Ver Propriedades</a></li>
-    {% endif %}
-  </ul>
-{% endblock %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  </head>
+
+  <body class="bg-light">
+    <div class="container py-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <!-- Cabeçalho -->
+          <div class="text-left mb-5">
+            <h1 class="display-4 titleText">Olá {{ user.get_username }}</h1>
+            <p class="lead">Bem vindo de volta!</p>
+          </div>
+
+          <!-- Seção Propriedades -->
+          <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+              <h2 class="card-title h4 mb-4">Propriedades</h2>
+              <div class="d-grid gap-3">
+                <a href="{% url 'propriedade-create' %}" class="btn btn-success btn-lg py-3">
+                  <i class="bi bi-plus-circle"></i> Cadastrar propriedade
+                </a>
+                <a href="{% url 'propriedade-list' %}" class="btn btn-success btn-lg py-3">
+                  <i class="bi bi-list-ul"></i> Ver Propriedades
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Seção Viveiros -->
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h2 class="card-title h4 mb-4">Viveiros</h2>
+              <div class="d-grid gap-3">
+                <a href="{% url 'viveiro-create' %}" class="btn btn-success btn-lg py-3">
+                  <i class="bi bi-plus-circle"></i> Cadastrar viveiro
+                </a>
+                <a href="{% url 'viveiros-list' %}" class="btn btn-success btn-lg py-3">
+                  <i class="bi bi-list-ul"></i> Ver viveiros
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"></script>
+  </body>
+</html>

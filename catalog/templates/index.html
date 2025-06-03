@@ -21,8 +21,22 @@
       <div class="row justify-content-center">
         <div class="col-lg-8">
           <div class="text-left mb-5">
+            <div class="d-flex flex-row justify-content-between">
             <h1 class="display-4 titleText">Olá {{ user.get_username }}</h1>
+            <div>{% if user.is_authenticated %}
+                  <form id="logout-form" method="post" action="{% url 'logout' %}">
+                  {% csrf_token %}
+                  <button type="submit" class="btn">Logout</button>
+                  </form>
+
+              {% else %}
+            {% endif %}
+            </div>
+            </div>
             <p class="lead">Bem vindo de volta!</p>
+
+
+
           </div>
 
           <div class="card mb-4 shadow-sm">

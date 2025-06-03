@@ -254,3 +254,5 @@ class HistoricoPropriedadeDelete(PermissionRequiredMixin, DeleteView):
             return HttpResponseRedirect(
                 reverse("historico-propriedade-delete", args=[self.object.id])
             )
+    def get_success_url(self):
+        return reverse('propriedade-detail', kwargs={'pk': self.object.propriedade.id})

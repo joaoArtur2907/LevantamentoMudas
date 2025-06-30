@@ -4,20 +4,6 @@
 
 <h1>Deletar Viveiro: {{ viveiro.responsavel }}</h1>
 
-{% if viveiro.historicoviveiro_set.all %}
-<p>Você não pode deletar esta viveiro até que todos os seus históricos sejam deletados:</p>
-<ul>
-  {% for historico in viveiro.historicoviveiro_set.all %}
-    <li>
-{#      <a href="{% url 'historicoviveiro-detail' historico.pk %}">#}
-        <a href="">
-        Histórico de {{ viveiro.responsavel }} ({{ historico.ano }})
-      </a>
-    </li>
-  {% endfor %}
-</ul>
-
-{% else %}
 <p>Você tem certeza que deseja deletar a viveiro "{{ viveiro.responsavel }}"?</p>
 
 <form action="" method="POST">
@@ -25,6 +11,5 @@
   <input type="submit" value="Sim, deletar." class="btn btn-danger">
   <a href="{% url 'viveiros-list' %}" class="btn btn-secondary">Cancelar</a>
 </form>
-{% endif %}
 
 {% endblock %}

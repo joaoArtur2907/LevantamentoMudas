@@ -24,12 +24,17 @@ urlpatterns = [
     # historico Viveiro
     path('viveiro/<int:viveiro_id>/historico/create', views.HistoricoViveiroCreate.as_view(), name='historicoViveiro-create'),
     path('historicoViveiro/<int:pk>/update', views.HistoricoViveiroUpdate.as_view(), name='historicoViveiro-update'),
-    # path('viveiro/<int:viveiro_id>/<int:pk>/historico/update', views.HistoricoViveiroUpdate.as_view(), name='historicoViveiro-update'),
     path('historicoViveiro/<int:pk>/delete', views.HistoricoViveiroDelete.as_view(), name='historicoViveiro-delete'),
+    # path('viveiro/<int:viveiro_id>/<int:pk>/historico/update', views.HistoricoViveiroUpdate.as_view(), name='historicoViveiro-update'),
 
     # historico Propriedade
     path('propriedade/<int:propriedade_id>/historico/create', views.HistoricoPropriedadeCreate.as_view(), name='historicoPropriedade-create'),
     path('historicoPropriedade/<int:pk>/update', views.HistoricoPropriedadeUpdate.as_view(), name='historicoPropriedade-update'),
     path('historicoPropriedade/<int:pk>/delete', views.HistoricoPropriedadeDelete.as_view(), name='historicoPropriedade-delete'),
 
+    # usuários
+    path('usuarios/', views.UserListView.as_view(), name='user-list'),
+    path('usuarios/create', views.UserCreate.as_view(), name='usuarios-create'),
+    path('usuarios/<int:pk>/update', views.UserUpdate.as_view(), name='usuarios-update'),
+    path('usuarios/<int:pk>/delete', views.UserDelete.as_view(), name='usuarios-delete'),
 ]

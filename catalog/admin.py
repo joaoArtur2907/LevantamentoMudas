@@ -10,3 +10,4 @@ admin.site.register(HistoricoPropriedade)
 admin.site.register(Cultivar)
 admin.site.register(DificuldadeProducao)
 admin.site.register(SistemaProducao)
+

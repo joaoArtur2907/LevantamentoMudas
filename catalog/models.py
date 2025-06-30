@@ -3,7 +3,6 @@ from django.db import models
 from django.db.models import UniqueConstraint
 from django.urls import reverse
 from django.db.models.functions import Lower
-# Create your models here.
 
 class Propriedade(models.Model):
     """modelo representando a propriedade"""
@@ -127,7 +126,7 @@ class SistemaProducao(models.Model):
 
 class HistoricoPropriedade(models.Model):
     """modelo representando o historico de propriedade"""
-    sistemasDeProducao = models.ManyToManyField(SistemaProducao)
+    sistemasDeProducao = models.ManyToManyField(SistemaProducao, verbose_name="Sistema de Produção")
 
     numPlantas = models.IntegerField(
         blank=True, null=True,
@@ -136,7 +135,6 @@ class HistoricoPropriedade(models.Model):
 
     )
 
-    # todo, mudar o modelo de b2b e b2c para apenas um item, com uma escolha entre se é voltado a B2B, B2C ou ambos igualmente
 
     B2B = models.IntegerField(
         blank=True, null=True,
@@ -160,7 +158,7 @@ class HistoricoPropriedade(models.Model):
         Cultivar, help_text='Cultivares do viveiro'
     )
 
-    propriedade = models.ForeignKey('Propriedade', on_delete=models.RESTRICT, null=True)
+    propriedade = models.ForeignKey('Propriedade', on_delete=models.CASCADE)
 
     def __str__(self):
         propriedade_nome = self.propriedade.responsavel if self.propriedade else "Sem propriedade"
@@ -169,7 +167,10 @@ class HistoricoPropriedade(models.Model):
 class HistoricoViveiro(models.Model):
     """modelo representando o historico de propriedade"""
 
-    sistemasDeProducao = models.ManyToManyField(SistemaProducao)
+
+
+    sistemasDeProducao = models.ManyToManyField(SistemaProducao, verbose_name="Sistema de Produção")
+
 
     numPlantas = models.IntegerField(
         blank=True, null=True,
@@ -207,7 +208,7 @@ class HistoricoViveiro(models.Model):
         Cultivar, help_text='Cultivares do viveiro'
     )
 
-    viveiro = models.ForeignKey('Viveiro', on_delete=models.RESTRICT, null=True)
+    viveiro = models.ForeignKey('Viveiro', on_delete=models.CASCADE)
 
     def __str__(self):
         viveiro_nome = self.viveiro.responsavel if self.viveiro else "Sem viveiro"

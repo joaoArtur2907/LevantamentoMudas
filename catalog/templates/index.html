@@ -27,6 +27,9 @@
                   <form id="logout-form" method="post" action="{% url 'logout' %}">
                   {% csrf_token %}
                   <button type="submit" class="btn">Logout</button>
+                  <a href="{% url 'user-list' %}" class="btn btn-success btn-lg py-3">
+                  <i class="bi bi-list-ul"></i> Ver Usuários
+                </a>
                   </form>
 
               {% else %}
@@ -34,8 +37,6 @@
             </div>
             </div>
             <p class="lead">Bem vindo de volta!</p>
-
-
 
           </div>
 

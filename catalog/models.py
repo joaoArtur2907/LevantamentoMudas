@@ -195,7 +195,7 @@ class HistoricoViveiro(models.Model):
         blank=True, null=True,
         help_text= "O quanto seu viveiro vende para outras empresas",
         verbose_name="Business to Business",
-        validators=[validarPositivo]
+        validators=[validarPositivo, validarPorcentagem]
     )
 
     B2C = models.IntegerField(
@@ -209,7 +209,7 @@ class HistoricoViveiro(models.Model):
         help_text="Ano da resposta",
         verbose_name="Ano da resposta",
         default=datetime.now().year,
-        validators=[validarPositivo, validarPorcentagem]
+        validators=[validarPositivo]
     )
 
     cultivar = models.ManyToManyField(

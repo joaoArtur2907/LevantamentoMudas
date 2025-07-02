@@ -1,7 +1,7 @@
 from mimetypes import inited
 
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpResponseRedirect
@@ -78,21 +78,18 @@ class ViveirosDetailView(LoginRequiredMixin, generic.DetailView):
         context['historicos_page'] = page_obj
         return context
 
-class PropriedadeCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+class PropriedadeCreate(LoginRequiredMixin, CreateView):
     model = Propriedade
     fields = '__all__'
     initial = {'nome': '<NAME>'}
-    permission_required = 'catalog.add_propriedade'
 
-class PropriedadeUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class PropriedadeUpdate(LoginRequiredMixin, UpdateView):
     model = Propriedade
     fields = '__all__'
-    permission_required = 'catalog.change_propriedade'
 
-class PropriedadeDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+class PropriedadeDelete(LoginRequiredMixin, DeleteView):
     model = Propriedade
     success_url = reverse_lazy('propriedade-list')
-    permission_required = 'catalog.delete_propriedade'
 
     def form_valid(self, form):
         try:
@@ -104,24 +101,19 @@ class PropriedadeDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView)
             )
 
 
-# algum erro nesse reverse ai importado talvez
-
-class ViveiroCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+class ViveiroCreate(LoginRequiredMixin, CreateView):
     model = Viveiro
     fields = '__all__'
     initial = {'nome': '<NAME>'}
-    permission_required = 'catalog.add_viveiro'
 
-class ViveiroUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class ViveiroUpdate(LoginRequiredMixin, UpdateView):
     model = Viveiro
     fields = '__all__'
     initial = {'nome': '<NAME>'}
-    permission_required = 'catalog.change_viveiro'
 
-class ViveiroDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+class ViveiroDelete(LoginRequiredMixin, DeleteView):
     model = Viveiro
     success_url = reverse_lazy('viveiro-list')
-    permission_required = 'catalog.delete_viveiro'
 
 
     def form_valid(self, form):
@@ -134,9 +126,8 @@ class ViveiroDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
                 reverse("viveiros-list")
             )
 
-class HistoricoViveiroCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+class HistoricoViveiroCreate(LoginRequiredMixin, CreateView):
     model = HistoricoViveiro
-    permission_required = 'catalog.add_historico_viveiro'
     form_class = HistoricoViveiroForm
 
    #pega o id do viveiro e adiciona diretamente no formulario
@@ -160,10 +151,9 @@ class HistoricoViveiroCreate(LoginRequiredMixin, PermissionRequiredMixin, Create
         return reverse('viveiro-detail', kwargs={'pk': self.object.viveiro.id})
 
 
-class HistoricoViveiroUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class HistoricoViveiroUpdate(LoginRequiredMixin, UpdateView):
     model = HistoricoViveiro
     form_class = HistoricoViveiroForm
-    permission_required = 'catalog.change_historico_viveiro'
     success_url = reverse_lazy('viveiros-list')
 
     def get_initial(self):
@@ -186,10 +176,9 @@ class HistoricoViveiroUpdate(LoginRequiredMixin, PermissionRequiredMixin, Update
 
 
 
-class HistoricoViveiroDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+class HistoricoViveiroDelete(LoginRequiredMixin, DeleteView):
     model = HistoricoViveiro
     success_url = reverse_lazy('viveiros-list')
-    permission_required = 'catalog.delete_historico_viveiro'
 
     def form_valid(self, form):
         try:
@@ -201,9 +190,8 @@ class HistoricoViveiroDelete(LoginRequiredMixin, PermissionRequiredMixin, Delete
             )
 
 
-class HistoricoPropriedadeCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+class HistoricoPropriedadeCreate(LoginRequiredMixin, CreateView):
     model = HistoricoPropriedade
-    permission_required = 'catalog.add_historico_propriedade'
     form_class = HistoricoPropriedadeForm
 
     def get_initial(self):
@@ -224,10 +212,9 @@ class HistoricoPropriedadeCreate(LoginRequiredMixin, PermissionRequiredMixin, Cr
     def get_success_url(self):
         return reverse('propriedade-detail', kwargs={'pk': self.object.propriedade.id})
 
-class HistoricoPropriedadeUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class HistoricoPropriedadeUpdate(LoginRequiredMixin, UpdateView):
     model = HistoricoPropriedade
     form_class = HistoricoPropriedadeForm
-    permission_required = 'catalog.change_historico_propriedade'
     success_url = reverse_lazy('propriedades-list')
 
 
@@ -250,10 +237,9 @@ class HistoricoPropriedadeUpdate(LoginRequiredMixin, PermissionRequiredMixin, Up
         return reverse('propriedade-detail', kwargs={'pk': self.object.propriedade.id})
 
 
-class HistoricoPropriedadeDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+class HistoricoPropriedadeDelete(LoginRequiredMixin, DeleteView):
     model = HistoricoPropriedade
     success_url = reverse_lazy('propriedade-list')
-    permission_required = 'catalog.delete_historico_propriedade'
 
     def form_valid(self, form):
         try:
@@ -269,18 +255,16 @@ class HistoricoPropriedadeDelete(LoginRequiredMixin, PermissionRequiredMixin, De
 
 # usuários
 
-class UserListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class UserListView(LoginRequiredMixin, ListView):
     model = User
-    permission_required = 'catalog.view_user'
     context_object_name = 'usuarios'
     template_name = 'catalog/user_list.html'
     paginate_by = 10
 
 
-class UserCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+class UserCreate(LoginRequiredMixin, CreateView):
     model = User
     initial = {'nome': '<NAME>'}
-    permission_required = 'catalog.add_user'
     template_name = 'catalog/User_form.html'
     form_class = UserLoginForm
 
@@ -288,20 +272,18 @@ class UserCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         return reverse('user-list')
 
 
-class UserUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class UserUpdate(LoginRequiredMixin, UpdateView):
     model = User
     initial = {'nome': '<NAME>'}
-    permission_required = 'catalog.change_user'
     template_name = 'catalog/User_form.html'
     form_class = UserForm
 
     def get_success_url(self):
         return reverse('user-list')
 
-class UserDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+class UserDelete(LoginRequiredMixin, DeleteView):
     model = User
     success_url = reverse_lazy('user-list')
-    permission_required = 'catalog.delete_user'
     template_name = 'catalog/User_confirm_delete.html'
 
 

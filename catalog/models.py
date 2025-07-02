@@ -6,7 +6,7 @@ from django.db.models import UniqueConstraint
 from django.urls import reverse
 from django.db.models.functions import Lower
 
-from catalog.validators import validarPositivo
+from catalog.validators import validarPositivo, validarPorcentagem
 
 
 class Propriedade(models.Model):
@@ -145,14 +145,14 @@ class HistoricoPropriedade(models.Model):
         blank=True, null=True,
         help_text= "O quanto sua propriedade vende para outras empresas",
         verbose_name="Business to Business",
-        validators=[validarPositivo]
+        validators=[validarPositivo, validarPorcentagem]
     )
 
     B2C = models.IntegerField(
         blank=True, null=True,
         help_text="O quanto sua propriedade vende diretamente ao público",
         verbose_name="Business to Consumer",
-        validators=[validarPositivo]
+        validators=[validarPositivo, validarPorcentagem]
     )
 
     ano = models.IntegerField(
@@ -202,14 +202,14 @@ class HistoricoViveiro(models.Model):
         blank=True, null=True,
         help_text="O quanto seu viveiro vende diretamente ao público",
         verbose_name="Business to Consumer",
-        validators=[validarPositivo]
+        validators=[validarPositivo, validarPorcentagem]
     )
 
     ano = models.IntegerField(
         help_text="Ano da resposta",
         verbose_name="Ano da resposta",
         default=datetime.now().year,
-        validators=[validarPositivo]
+        validators=[validarPositivo, validarPorcentagem]
     )
 
     cultivar = models.ManyToManyField(

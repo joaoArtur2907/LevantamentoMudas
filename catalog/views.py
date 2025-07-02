@@ -10,7 +10,7 @@ from django.urls import reverse_lazy, reverse
 from django.views import generic
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView
 
-from .forms import UserForm, UserLoginForm
+from .forms import UserForm, UserLoginForm, HistoricoViveiroForm, HistoricoPropriedadeForm
 from .models import Propriedade, Viveiro, HistoricoViveiro, HistoricoPropriedade, DificuldadeProducao, Cultivar, SistemaProducao
 
 @login_required
@@ -136,8 +136,8 @@ class ViveiroDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 
 class HistoricoViveiroCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = HistoricoViveiro
-    fields = '__all__'
     permission_required = 'catalog.add_historico_viveiro'
+    form_class = HistoricoViveiroForm
 
    #pega o id do viveiro e adiciona diretamente no formulario
     def get_initial(self):
@@ -162,7 +162,7 @@ class HistoricoViveiroCreate(LoginRequiredMixin, PermissionRequiredMixin, Create
 
 class HistoricoViveiroUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = HistoricoViveiro
-    fields = '__all__'
+    form_class = HistoricoViveiroForm
     permission_required = 'catalog.change_historico_viveiro'
     success_url = reverse_lazy('viveiros-list')
 
@@ -203,8 +203,8 @@ class HistoricoViveiroDelete(LoginRequiredMixin, PermissionRequiredMixin, Delete
 
 class HistoricoPropriedadeCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = HistoricoPropriedade
-    fields = '__all__'
     permission_required = 'catalog.add_historico_propriedade'
+    form_class = HistoricoPropriedadeForm
 
     def get_initial(self):
         initial = super().get_initial()
@@ -226,9 +226,10 @@ class HistoricoPropriedadeCreate(LoginRequiredMixin, PermissionRequiredMixin, Cr
 
 class HistoricoPropriedadeUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = HistoricoPropriedade
-    fields = '__all__'
+    form_class = HistoricoPropriedadeForm
     permission_required = 'catalog.change_historico_propriedade'
     success_url = reverse_lazy('propriedades-list')
+
 
     def get_initial(self):
         initial = super().get_initial()

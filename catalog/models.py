@@ -1,8 +1,13 @@
+from datetime import datetime
+
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.db.models import UniqueConstraint
 from django.urls import reverse
 from django.db.models.functions import Lower
+
+from catalog.validators import validarPositivo, validarPorcentagem
+
 
 class Propriedade(models.Model):
     """modelo representando a propriedade"""
@@ -131,8 +136,8 @@ class HistoricoPropriedade(models.Model):
     numPlantas = models.IntegerField(
         blank=True, null=True,
         help_text= "Numero de plantas da propriedade",
-        verbose_name='Numero de plantas da propriedade'
-
+        verbose_name='Numero de plantas da propriedade',
+        validators = [validarPositivo]
     )
 
 
@@ -140,18 +145,21 @@ class HistoricoPropriedade(models.Model):
         blank=True, null=True,
         help_text= "O quanto sua propriedade vende para outras empresas",
         verbose_name="Business to Business",
+        validators=[validarPositivo, validarPorcentagem]
     )
 
     B2C = models.IntegerField(
         blank=True, null=True,
         help_text="O quanto sua propriedade vende diretamente ao público",
         verbose_name="Business to Consumer",
+        validators=[validarPositivo, validarPorcentagem]
     )
 
     ano = models.IntegerField(
         help_text="Ano da resposta",
         verbose_name="Ano da resposta",
-
+        default=datetime.now().year,
+        validators=[validarPositivo]
     )
 
     cultivar = models.ManyToManyField(
@@ -167,41 +175,41 @@ class HistoricoPropriedade(models.Model):
 class HistoricoViveiro(models.Model):
     """modelo representando o historico de propriedade"""
 
-
-
     sistemasDeProducao = models.ManyToManyField(SistemaProducao, verbose_name="Sistema de Produção")
-
 
     numPlantas = models.IntegerField(
         blank=True, null=True,
         help_text= "Numero de plantas do viveiro",
-        verbose_name='Numero de plantas do viveiro'
-
+        verbose_name='Numero de plantas do viveiro',
+        validators=[validarPositivo]
     )
 
     numClientes = models.IntegerField(
         blank=True, null=True,
         help_text="Numero de clientes do viveiro",
-        verbose_name='Numero de clientes do viveiro'
-
+        verbose_name='Numero de clientes do viveiro',
+        validators = [validarPositivo]
     )
 
     B2B = models.IntegerField(
         blank=True, null=True,
         help_text= "O quanto seu viveiro vende para outras empresas",
         verbose_name="Business to Business",
+        validators=[validarPositivo]
     )
 
     B2C = models.IntegerField(
         blank=True, null=True,
         help_text="O quanto seu viveiro vende diretamente ao público",
         verbose_name="Business to Consumer",
+        validators=[validarPositivo, validarPorcentagem]
     )
 
     ano = models.IntegerField(
         help_text="Ano da resposta",
         verbose_name="Ano da resposta",
-
+        default=datetime.now().year,
+        validators=[validarPositivo, validarPorcentagem]
     )
 
     cultivar = models.ManyToManyField(

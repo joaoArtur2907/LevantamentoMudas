@@ -166,11 +166,15 @@ input[type="submit"] {
 input[type="checkbox"] {
   height: 25px;
   width: 25px;
+  ;
+}
 
+INPUT[type=checkbox]:checked
+{
+    accent-color: #4CAF50;
 }
 
 input[type="checkbox"]:hover{
     background-color: #ccc;
 }
-
 

@@ -30,6 +30,9 @@
                 <a href="{% url 'user-list' %}" class="btn btn-outline-success btn-lg">
                   <i class="bi bi-people"></i> Usuários
                 </a>
+                <a href="{% url 'cultivar-list' %}" class="btn btn-outline-success btn-lg">
+                  <i class="bi bi-flower2"></i> Cultivares
+                </a>
               {% endif %}
                 <form id="logout-form" method="post" action="{% url 'logout' %}">
                   {% csrf_token %}

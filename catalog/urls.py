@@ -21,6 +21,11 @@ urlpatterns = [
     path('viveiro/<int:pk>/update', views.ViveiroUpdate.as_view(), name='viveiro-update'),
     path('viveiro/<int:pk>/delete', views.ViveiroDelete.as_view(), name='viveiro-delete'),
 
+    # cultivares
+    path('cultivares/', views.CultivarListView.as_view(), name='cultivar-list'),
+    path('cultivares/create', views.CultivarCreate.as_view(), name='cultivar-create'),
+    path('cultivares/<int:pk>/delete', views.CultivarDelete.as_view(), name='cultivar-delete'),
+
     # historico Viveiro
     path('viveiro/<int:viveiro_id>/historico/create', views.HistoricoViveiroCreate.as_view(), name='historicoViveiro-create'),
     path('historicoViveiro/<int:pk>/update', views.HistoricoViveiroUpdate.as_view(), name='historicoViveiro-update'),

@@ -24,7 +24,7 @@ class UserLoginForm(UserCreationForm):
     )
     password2 = forms.CharField(
         label="Confirmação de senha",
-        widget=forms.PasswordInput(attrs={"autocomplete": "new-password"}),
+        widget=forms.PasswordInput(attrs={"autocomplete": "new-password"}), # bloqueia o autocomplete do navegador
         strip=False,
         help_text="Digite a senha novamente para confirmação."
     )

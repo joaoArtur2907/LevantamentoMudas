@@ -120,7 +120,7 @@ class Cultivar(models.Model):
         return self.nomeCultivar
 
     def get_absolute_url(self):
-        return reverse('cultivar-detail', args=[str(self.id)])
+        return reverse('cultivar-list')
 
 
 class SistemaProducao(models.Model):
@@ -144,14 +144,14 @@ class HistoricoPropriedade(models.Model):
     B2B = models.IntegerField(
         blank=True, null=True,
         help_text= "O quanto sua propriedade vende para outras empresas",
-        verbose_name="Business to Business",
+        verbose_name="Vendas para empresas",
         validators=[validarPositivo, validarPorcentagem]
     )
 
     B2C = models.IntegerField(
         blank=True, null=True,
         help_text="O quanto sua propriedade vende diretamente ao público",
-        verbose_name="Business to Consumer",
+        verbose_name="Vendas para consumidores",
         validators=[validarPositivo, validarPorcentagem]
     )
 

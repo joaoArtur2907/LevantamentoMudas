@@ -252,6 +252,34 @@ class HistoricoPropriedadeDelete(LoginRequiredMixin, DeleteView):
     def get_success_url(self):
         return reverse('propriedade-detail', kwargs={'pk': self.object.propriedade.id})
 
+# cultivares
+
+class CultivarListView(LoginRequiredMixin, ListView):
+    model = Cultivar
+    context_object_name = 'cultivares'
+    template_name = 'catalog/Cultivar_list.html'
+    paginate_by = 10
+
+class CultivarCreate(LoginRequiredMixin, CreateView):
+    model = Cultivar
+    fields = '__all__'
+
+class CultivarUpdate(LoginRequiredMixin, UpdateView):
+    model = Cultivar
+    fields = '__all__'
+
+class CultivarDelete(LoginRequiredMixin, DeleteView):
+    model = Cultivar
+    success_url = reverse_lazy('cultivar-list')
+
+    def form_valid(self, form):
+        try:
+            self.object.delete()
+            return HttpResponseRedirect(self.success_url)
+        except Exception as e:
+            return HttpResponseRedirect(
+                reverse("cultivar-list")
+            )
 
 # usuários
 

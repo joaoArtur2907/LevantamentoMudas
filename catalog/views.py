@@ -125,7 +125,7 @@ class ViveiroDelete(LoginRequiredMixin, DeleteView):
             return HttpResponseRedirect(
                 reverse("viveiros-list")
             )
-
+# bleh
 class HistoricoViveiroCreate(LoginRequiredMixin, CreateView):
     model = HistoricoViveiro
     form_class = HistoricoViveiroForm
@@ -279,6 +279,35 @@ class CultivarDelete(LoginRequiredMixin, DeleteView):
         except Exception as e:
             return HttpResponseRedirect(
                 reverse("cultivar-list")
+            )
+
+# SistemaProducao
+
+class SistemaProducaoListView(LoginRequiredMixin, ListView):
+    model = SistemaProducao
+    context_object_name = 'sistema_producao'
+    template_name = 'catalog/SistemaProducao_list.html'
+    paginate_by = 10
+
+class SistemaProducaoCreate(LoginRequiredMixin, CreateView):
+    model = SistemaProducao
+    fields = '__all__'
+
+class SistemaProducaoUpdate(LoginRequiredMixin, UpdateView):
+    model = SistemaProducao
+    fields = '__all__'
+
+class SistemaProducaoDelete(LoginRequiredMixin, DeleteView):
+    model = SistemaProducao
+    success_url = reverse_lazy('sistemaProducao-list')
+
+    def form_valid(self, form):
+        try:
+            self.object.delete()
+            return HttpResponseRedirect(self.success_url)
+        except Exception as e:
+            return HttpResponseRedirect(
+                reverse("sistemaProducao-list")
             )
 
 # usuários

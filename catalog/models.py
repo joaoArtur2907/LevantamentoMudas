@@ -124,10 +124,18 @@ class Cultivar(models.Model):
 
 
 class SistemaProducao(models.Model):
-    nome = models.CharField(max_length=100, unique=True)
+    nome = models.CharField(
+        max_length=100,
+        help_text='Nome do Sistema de Produção',
+        verbose_name='Nome do Sistema de Produção',
+        unique=True
+    )
 
     def __str__(self):
         return self.nome
+
+    def get_absolute_url(self):
+        return reverse('sistemaProducao-list')
 
 class HistoricoPropriedade(models.Model):
     """modelo representando o historico de propriedade"""

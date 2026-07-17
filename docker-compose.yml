@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:17
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=levantamentoMudasIntegrador
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=chocolate297
+    ports:
+      - "5432:5432"
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - SECRET_KEY=django-insecure-=*w-f6tzmgws6phtestechaveFalsebbo0fa(aield#cgp(cjfcn#3+xa=(cynd$+
+      - DEBUG=False
+      - DB_NAME=levantamentoMudasIntegrador
+      - DB_USER=postgres
+      - DB_PASSWORD=chocolate297
+      - DB_HOST=db
+      - DB_PORT=5432
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
